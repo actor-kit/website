@@ -20,12 +20,30 @@ const Hero = () => {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
-          <Button size="lg" className="bg-gradient-to-r from-cf-blue to-cf-orange text-white hover:opacity-90">
-            Get Started <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button size="lg" variant="outline">
-            View on GitHub
-          </Button>
+          <a 
+            href="https://github.com/actor-kit/actor-kit#getting-started"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-cf-blue to-cf-orange text-white hover:opacity-90"
+            >
+              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </a>
+          <a 
+            href="https://github.com/actor-kit/actor-kit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button 
+              size="lg" 
+              variant="outline"
+            >
+              View on GitHub
+            </Button>
+          </a>
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-fade-in opacity-0" style={{ animationDelay: "0.7s" }}>
