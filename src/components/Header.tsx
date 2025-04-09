@@ -31,15 +31,30 @@ const Header = () => {
             </div>
           </Link>
           <nav className="hidden md:flex gap-6">
-            <Link to="/docs" className="text-sm font-medium hover:text-primary transition-colors">
+            <a 
+              href="https://github.com/jonmumm/actor-kit#readme" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Documentation
-            </Link>
-            <Link to="/examples" className="text-sm font-medium hover:text-primary transition-colors">
+            </a>
+            <a 
+              href="https://github.com/jonmumm/actor-kit/tree/main/examples" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Examples
-            </Link>
-            <Link to="/community" className="text-sm font-medium hover:text-primary transition-colors">
+            </a>
+            <a 
+              href="https://github.com/jonmumm/actor-kit/discussions" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Community
-            </Link>
+            </a>
           </nav>
         </div>
         <div className="flex items-center gap-4">
@@ -55,6 +70,7 @@ const Header = () => {
           <Button 
             variant="default" 
             className="bg-gradient-to-r from-blue-600 to-cf-orange text-white hover:opacity-90"
+            onClick={() => window.open("https://github.com/jonmumm/actor-kit#getting-started", "_blank")}
           >
             Get Started
           </Button>

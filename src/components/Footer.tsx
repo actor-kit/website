@@ -26,14 +26,24 @@ const Footer = () => {
             <h3 className="font-medium mb-4">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/docs" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a 
+                  href="https://github.com/jonmumm/actor-kit#readme" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Documentation
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/examples" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a 
+                  href="https://github.com/jonmumm/actor-kit/tree/main/examples" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Examples
-                </Link>
+                </a>
               </li>
               <li>
                 <a 

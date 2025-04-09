@@ -1,6 +1,11 @@
-
 import { useState, useEffect } from "react";
 import { Server, Globe, Code, Lock, Cpu, Workflow } from "lucide-react";
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-javascript";
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -14,6 +19,11 @@ const Features = () => {
     
     return () => clearTimeout(timer);
   }, []);
+  
+  // Initialize Prism.js after component mount and whenever the tab changes
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [activeTab]);
   
   const features = [
     {
@@ -255,7 +265,7 @@ export const todoMachine = setup({
 │          ready          │────────────┐
 └─────────────────────────┘          │ │
            │                         │ │
-           │                         │ │
+           │                         ��� │
            ▼                         │ │
 ┌─────────────────────────┐          │ │
 │      synchronizing      │          │ │
@@ -356,7 +366,7 @@ const incrementAccessCount = assign({
       +------------------------+           |
                                           |
       +------------------------+           |
-      |         error         |<-----------+
+      |         error          |<-----------+
       +------------------------+
 */
 
@@ -501,7 +511,8 @@ function TodoApp() {
       </div>
       
       {/* Add styles for the state machine visualization */}
-      <style jsx>{`
+      <style>
+        {`
         .state-machine-diagram {
           position: relative;
           width: 100%;
@@ -659,7 +670,8 @@ function TodoApp() {
           box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
           border-color: rgba(220, 38, 38, 0.8);
         }
-      `}</style>
+        `}
+      </style>
     </section>
   );
 };
