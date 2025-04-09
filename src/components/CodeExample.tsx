@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, CheckCheck } from "lucide-react";
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
 
 const CodeExample = () => {
   const [copied, setCopied] = useState(false);
@@ -280,6 +284,11 @@ export function GameLobby() {
   );
 }`;
 
+  // Function to apply syntax highlighting
+  const highlightCode = (code: string) => {
+    return Prism.highlight(code, Prism.languages.typescript, 'typescript');
+  };
+
   return (
     <section className="py-20 container" id="code-example">
       <div className="text-center max-w-3xl mx-auto mb-12">
@@ -319,33 +328,45 @@ export function GameLobby() {
           
           <TabsContent value="machine" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code className="language-typescript">
-                {machineCode}
-              </code>
+              <code 
+                className="language-typescript" 
+                dangerouslySetInnerHTML={{
+                  __html: highlightCode(machineCode)
+                }}
+              />
             </pre>
           </TabsContent>
           
           <TabsContent value="server" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code className="language-typescript">
-                {serverCode}
-              </code>
+              <code 
+                className="language-typescript" 
+                dangerouslySetInnerHTML={{
+                  __html: highlightCode(serverCode)
+                }}
+              />
             </pre>
           </TabsContent>
           
           <TabsContent value="worker" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code className="language-typescript">
-                {workerCode}
-              </code>
+              <code 
+                className="language-typescript" 
+                dangerouslySetInnerHTML={{
+                  __html: highlightCode(workerCode)
+                }}
+              />
             </pre>
           </TabsContent>
           
           <TabsContent value="client" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code className="language-typescript">
-                {clientCode}
-              </code>
+              <code 
+                className="language-typescript" 
+                dangerouslySetInnerHTML={{
+                  __html: highlightCode(clientCode)
+                }}
+              />
             </pre>
           </TabsContent>
         </Tabs>
