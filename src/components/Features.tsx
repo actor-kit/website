@@ -9,16 +9,6 @@ import "prismjs/components/prism-javascript";
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [animateStates, setAnimateStates] = useState(false);
-  
-  // Initialize animation after component mounts
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimateStates(true);
-    }, 500);
-    
-    return () => clearTimeout(timer);
-  }, []);
   
   // Initialize Prism.js after component mount and whenever the tab changes
   useEffect(() => {
@@ -407,86 +397,15 @@ const incrementAccessCount = assign({
             <div className="lg:w-2/3 rounded-xl bg-[#0D1117] overflow-hidden">
               <div className="p-6 h-full flex flex-col">
                 <h3 className="text-gray-300 mb-4 font-mono">// State machine visualization example</h3>
-                <div className="flex-grow relative">
-                  {/* Interactive state machine visualization */}
-                  <div className="state-machine-diagram">
-                    {/* States with fancy styling */}
-                    <div className={`state-node state-idle ${animateStates ? "animate-in" : ""}`}>
-                      <div className="state-content">idle</div>
-                    </div>
-                    
-                    <div className={`state-node state-loading ${animateStates ? "animate-in" : ""} delay-100`}>
-                      <div className="state-content">loading</div>
-                    </div>
-                    
-                    <div className={`state-node state-ready ${animateStates ? "animate-in" : ""} delay-200`}>
-                      <div className="state-content">ready</div>
-                    </div>
-                    
-                    <div className={`state-node state-synchronizing ${animateStates ? "animate-in" : ""} delay-300`}>
-                      <div className="state-content">synchronizing</div>
-                    </div>
-                    
-                    <div className={`state-node state-synchronized ${animateStates ? "animate-in" : ""} delay-400`}>
-                      <div className="state-content">synchronized</div>
-                    </div>
-                    
-                    <div className={`state-node state-error ${animateStates ? "animate-in" : ""} delay-500`}>
-                      <div className="state-content">error</div>
-                    </div>
-                    
-                    {/* Add SVG for proper arrow transitions */}
-                    <svg className="state-diagram-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
-                      {/* Vertical transitions */}
-                      <g className={`transition ${animateStates ? "animate-in" : ""}`}>
-                        <line x1="50%" y1="50px" x2="50%" y2="100px" className="transition-line" />
-                        <polygon points="50%,110 47%,100 53%,100" className="arrow-head" />
-                      </g>
-                      
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-100`}>
-                        <line x1="50%" y1="150px" x2="50%" y2="200px" className="transition-line" />
-                        <polygon points="50%,210 47%,200 53%,200" className="arrow-head" />
-                      </g>
-                      
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-200`}>
-                        <line x1="50%" y1="250px" x2="50%" y2="300px" className="transition-line" />
-                        <polygon points="50%,310 47%,300 53%,300" className="arrow-head" />
-                      </g>
-                      
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-300`}>
-                        <line x1="50%" y1="350px" x2="50%" y2="400px" className="transition-line" />
-                        <polygon points="50%,410 47%,400 53%,400" className="arrow-head" />
-                      </g>
-                      
-                      {/* Diagonal transitions */}
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-400`}>
-                        <line x1="40%" y1="400px" x2="55%" y2="450px" className="transition-line" />
-                        <polygon points="60%,455 55%,445 50%,450" className="arrow-head" />
-                      </g>
-                      
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-500`}>
-                        <line x1="65%" y1="425px" x2="35%" y2="25px" className="transition-line" />
-                        <polygon points="30%,20 30%,30 40%,25" className="arrow-head" />
-                      </g>
-                      
-                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-200`}>
-                        <line x1="65%" y1="200px" x2="35%" y2="25px" className="transition-line" />
-                        <polygon points="30%,20 30%,30 40%,25" className="arrow-head" />
-                      </g>
-                    </svg>
-                  </div>
-                  
-                  {/* Legend */}
-                  <div className="absolute bottom-2 right-2 bg-gray-900/60 backdrop-blur-sm rounded p-2 text-xs text-gray-400">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-3 h-3 rounded bg-blue-500"></div>
-                      <span>Active State</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-0.5 bg-gray-500"></div>
-                      <span>Transition</span>
-                    </div>
-                  </div>
+                <div className="flex-grow">
+                  {/* Replace the visualization with a Stately iframe */}
+                  <iframe 
+                    src="https://stately.ai/viz/embed/83bf2e88-4f2a-4dc4-9a72-d29679fd2019?machineId=83bf2e88-4f2a-4dc4-9a72-d29679fd2019&mode=viz"
+                    className="w-full h-full min-h-[400px] border-0 rounded"
+                    title="XState Machine Visualization"
+                    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+                    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -501,136 +420,6 @@ const incrementAccessCount = assign({
           )}
         </div>
       </div>
-      
-      {/* Add styles for the state machine visualization with improved SVG arrows */}
-      <style>
-        {`
-        .state-machine-diagram {
-          position: relative;
-          width: 100%;
-          height: 400px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          overflow: hidden;
-        }
-        
-        .state-diagram-svg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-          pointer-events: none;
-        }
-        
-        .transition {
-          opacity: 0;
-          transition: opacity 0.5s ease;
-        }
-        
-        .transition.animate-in {
-          opacity: 1;
-        }
-        
-        .transition-line {
-          stroke: rgba(148, 163, 184, 0.3);
-          stroke-width: 2;
-        }
-        
-        .arrow-head {
-          fill: rgba(148, 163, 184, 0.3);
-        }
-        
-        .state-node {
-          position: relative;
-          width: 220px;
-          height: 50px;
-          border: 1px solid rgba(121, 142, 170, 0.5);
-          border-radius: 6px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(30, 41, 59, 0.7);
-          margin: 0 auto;
-          opacity: 0;
-          transform: translateY(10px);
-          transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
-          box-shadow: 0 0 0 rgba(59, 130, 246, 0);
-          z-index: 2;
-        }
-        
-        .state-node.animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        .state-content {
-          font-family: monospace;
-          color: #e2e8f0;
-          font-size: 14px;
-        }
-        
-        .state-idle {
-          margin-top: 0;
-        }
-        
-        .state-loading {
-          margin-top: 0;
-        }
-        
-        .state-ready {
-          margin-top: 0;
-        }
-        
-        .state-synchronizing {
-          margin-top: 0;
-        }
-        
-        .state-synchronized {
-          margin-top: 0;
-        }
-        
-        .state-error {
-          margin-top: 0;
-          border-color: rgba(220, 38, 38, 0.5);
-        }
-        
-        .delay-100 {
-          transition-delay: 0.1s;
-        }
-        
-        .delay-200 {
-          transition-delay: 0.2s;
-        }
-        
-        .delay-300 {
-          transition-delay: 0.3s;
-        }
-        
-        .delay-400 {
-          transition-delay: 0.4s;
-        }
-        
-        .delay-500 {
-          transition-delay: 0.5s;
-        }
-        
-        /* Add hover effects */
-        .state-node:hover {
-          box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-          border-color: rgba(59, 130, 246, 0.8);
-          z-index: 10;
-        }
-        
-        .state-error:hover {
-          box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
-          border-color: rgba(220, 38, 38, 0.8);
-        }
-        `}
-      </style>
     </section>
   );
 };
