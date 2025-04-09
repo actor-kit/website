@@ -27,10 +27,20 @@ const CTA = () => {
                     </Button>
                   </Link>
                 </div>
+                <div className="mt-4 text-sm text-muted-foreground">
+                  Created by <span className="font-medium">piqololabs</span> - open source and ready for production
+                </div>
               </div>
               <div className="bg-card/50 border rounded-xl p-6">
                 <h3 className="font-semibold mb-4">Perfect For:</h3>
                 <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <span className="h-5 w-5 rounded-full bg-gradient-to-r from-green-400 to-green-500 flex items-center justify-center text-white text-xs mr-3 mt-0.5">✓</span>
+                    <div>
+                      <span className="font-medium">AI Agents</span>
+                      <p className="text-sm text-muted-foreground">Orchestrate stateful AI agents with persistence and real-time capabilities</p>
+                    </div>
+                  </li>
                   <li className="flex items-start">
                     <span className="h-5 w-5 rounded-full bg-gradient-to-r from-green-400 to-green-500 flex items-center justify-center text-white text-xs mr-3 mt-0.5">✓</span>
                     <div>
