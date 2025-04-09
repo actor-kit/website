@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -27,7 +26,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="https://github.com/jonmumm/actor-kit#readme" 
+                  href="https://github.com/actor-kit/actor-kit#readme" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
@@ -37,7 +36,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://github.com/jonmumm/actor-kit/tree/main/examples" 
+                  href="https://github.com/actor-kit/actor-kit/tree/main/examples" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
@@ -47,7 +46,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://github.com/jonmumm/actor-kit" 
+                  href="https://github.com/actor-kit/actor-kit" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"

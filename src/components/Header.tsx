@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -32,7 +31,7 @@ const Header = () => {
           </Link>
           <nav className="hidden md:flex gap-6">
             <a 
-              href="https://github.com/jonmumm/actor-kit#readme" 
+              href="https://github.com/actor-kit/actor-kit#readme" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm font-medium hover:text-primary transition-colors"
@@ -40,7 +39,7 @@ const Header = () => {
               Documentation
             </a>
             <a 
-              href="https://github.com/jonmumm/actor-kit/tree/main/examples" 
+              href="https://github.com/actor-kit/actor-kit/tree/main/examples" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm font-medium hover:text-primary transition-colors"
@@ -48,7 +47,7 @@ const Header = () => {
               Examples
             </a>
             <a 
-              href="https://github.com/jonmumm/actor-kit/discussions" 
+              href="https://github.com/actor-kit/actor-kit/discussions" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm font-medium hover:text-primary transition-colors"
@@ -59,7 +58,7 @@ const Header = () => {
         </div>
         <div className="flex items-center gap-4">
           <a 
-            href="https://github.com/jonmumm/actor-kit" 
+            href="https://github.com/actor-kit/actor-kit" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2.5"
@@ -70,7 +69,7 @@ const Header = () => {
           <Button 
             variant="default" 
             className="bg-gradient-to-r from-blue-600 to-cf-orange text-white hover:opacity-90"
-            onClick={() => window.open("https://github.com/jonmumm/actor-kit#getting-started", "_blank")}
+            onClick={() => window.open("https://github.com/actor-kit/actor-kit#getting-started", "_blank")}
           >
             Get Started
           </Button>

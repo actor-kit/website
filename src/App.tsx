@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -36,15 +35,15 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route 
             path="/docs" 
-            element={<GitHubRedirect to="https://github.com/jonmumm/actor-kit#readme" />} 
+            element={<GitHubRedirect to="https://github.com/actor-kit/actor-kit#readme" />} 
           />
           <Route 
             path="/examples" 
-            element={<GitHubRedirect to="https://github.com/jonmumm/actor-kit/tree/main/examples" />} 
+            element={<GitHubRedirect to="https://github.com/actor-kit/actor-kit/tree/main/examples" />} 
           />
           <Route 
             path="/community" 
-            element={<GitHubRedirect to="https://github.com/jonmumm/actor-kit/discussions" />} 
+            element={<GitHubRedirect to="https://github.com/actor-kit/actor-kit/discussions" />} 
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
