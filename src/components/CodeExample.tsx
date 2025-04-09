@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
 import "prismjs/components/prism-javascript";
+import { produce } from "immer";
 
 const CodeExample = () => {
   const [copied, setCopied] = useState(false);
@@ -27,6 +27,7 @@ const CodeExample = () => {
 
   const machineCode = `import { ActorKitStateMachine } from "actor-kit";
 import { assign, setup } from "xstate";
+import { produce } from "immer";
 import type {
   GameEvent,
   GameInput,
@@ -46,52 +47,53 @@ export const gameMachine = setup({
     addPlayer: assign({
       public: ({ context, event }) => {
         if (event.type !== "JOIN_GAME") return context.public;
-        
-        // Check if player already exists
-        const existingPlayerIndex = context.public.players.findIndex(
-          (p) => p.id === event.caller.id
-        );
-        
-        // If player exists, update their name
-        if (existingPlayerIndex >= 0) {
-          const updatedPlayers = [...context.public.players];
-          updatedPlayers[existingPlayerIndex] = {
-            ...updatedPlayers[existingPlayerIndex],
-            name: event.name,
-            status: "ready",
-          };
+        return produce(context.public, draft => {
+          // Check if player already exists
+          const existingPlayerIndex = draft.players.findIndex(
+            (p) => p.id === event.caller.id
+          );
           
-          return {
-            ...context.public,
-            players: updatedPlayers,
-          };
-        }
-        
-        // Otherwise add new player
-        const newPlayer: Player = {
-          id: event.caller.id,
-          name: event.name,
-          score: 0,
-          status: "ready",
-        };
-        
-        return {
-          ...context.public,
-          players: [...context.public.players, newPlayer],
-        };
+          // If player exists, update their name
+          if (existingPlayerIndex >= 0) {
+            draft.players[existingPlayerIndex].name = event.name;
+            draft.players[existingPlayerIndex].status = "ready";
+            return;
+          }
+          
+          // Otherwise add new player
+          draft.players.push({
+            id: event.caller.id,
+            name: event.name,
+            score: 0,
+            status: "ready",
+          });
+        });
       },
     }),
     
     startGame: assign({
-      public: ({ context }) => ({
-        ...context.public,
-        gameStatus: "active",
-        currentRound: 1,
-        startTime: Date.now(),
-      }),
+      public: ({ context }) => {
+        return produce(context.public, draft => {
+          draft.gameStatus = "active";
+          draft.currentRound = 1;
+          draft.startTime = Date.now();
+        });
+      },
     }),
     
-    // More actions...
+    addTodo: assign({
+      public: ({ context, event }) => {
+        if (event.type !== "ADD_TODO") return context.public;
+        return produce(context.public, draft => {
+          draft.todos.push({ 
+            id: crypto.randomUUID(), 
+            text: event.text, 
+            completed: false 
+          });
+          draft.lastSync = Date.now();
+        });
+      },
+    }),
   },
   guards: {
     isGameOwner: ({ context, event }) => {

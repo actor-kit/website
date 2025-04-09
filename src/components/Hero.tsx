@@ -21,7 +21,7 @@ const Hero = () => {
         
         <div className="flex flex-col sm:flex-row gap-4 animate-fade-in opacity-0" style={{ animationDelay: "0.5s" }}>
           <a 
-            href="https://github.com/actor-kit/actor-kit#getting-started"
+            href="https://github.com/actor-kit/actor-kit?tab=readme-ov-file#-getting-started"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -53,7 +53,7 @@ const Hero = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">State Machine Architecture</h3>
             <p className="text-muted-foreground">
-              Model complex application logic with a predictable, visualizable state machine approach.
+              Model complex application logic with a predictable, visualizable state machine approach using Immer's produce for immutable updates.
             </p>
           </div>
           
@@ -63,7 +63,7 @@ const Hero = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">Edge-Native Performance</h3>
             <p className="text-muted-foreground">
-              Built from the ground up for Cloudflare Workers with real-time, distributed state management.
+              Built from the ground up for Cloudflare Workers with real-time, distributed state management using immutable updates.
             </p>
           </div>
           
@@ -73,7 +73,7 @@ const Hero = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">Type-Safe Operations</h3>
             <p className="text-muted-foreground">
-              First-class TypeScript support with Zod for runtime validation and type safety.
+              First-class TypeScript support with Zod for runtime validation and Immer for type-safe state updates.
             </p>
           </div>
         </div>
