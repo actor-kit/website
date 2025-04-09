@@ -236,7 +236,142 @@ export const todoMachine = setup({
       icon: <Cpu className="h-5 w-5" />,
       title: "State Machine Logic",
       description: "Powered by XState, making complex state management more manageable and visualizable, with tools for debugging and state inspection.",
-      code: ``
+      code: `// app/game.machine.ts
+import { ActorKitStateMachine } from "actor-kit";
+import { assign, setup } from "xstate";
+import type {
+  GameEvent,
+  GameInput,
+  GamePrivateContext,
+  GamePublicContext,
+  GameServerContext,
+  Player,
+} from "./game.types";
+
+export const gameMachine = setup({
+  types: {
+    context: {} as GameServerContext,
+    events: {} as GameEvent,
+    input: {} as GameInput,
+  },
+  actions: {
+    addPlayer: assign({
+      public: ({ context, event }) => {
+        if (event.type !== "JOIN_GAME") return context.public;
+        
+        // Check if player already exists
+        const existingPlayerIndex = context.public.players.findIndex(
+          (p) => p.id === event.caller.id
+        );
+        
+        // If player exists, update their name
+        if (existingPlayerIndex >= 0) {
+          const updatedPlayers = [...context.public.players];
+          updatedPlayers[existingPlayerIndex] = {
+            ...updatedPlayers[existingPlayerIndex],
+            name: event.playerName,
+            score: 0,
+          };
+          
+          return {
+            ...context.public,
+            players: updatedPlayers,
+          };
+        }
+        
+        // Otherwise add new player
+        const newPlayer: Player = {
+          id: event.caller.id,
+          name: event.playerName,
+          score: 0,
+        };
+        
+        return {
+          ...context.public,
+          players: [...context.public.players, newPlayer],
+        };
+      },
+    }),
+    
+    startGame: assign({
+      public: ({ context }) => ({
+        ...context.public,
+        currentQuestion: {
+          questionId: Object.keys(context.public.questions)[0],
+          startTime: Date.now(),
+          answers: [],
+        },
+        questionNumber: 1,
+      }),
+    }),
+  },
+  guards: {
+    isHost: ({ context, event }) => {
+      return context.public.hostId === event.caller.id;
+    },
+    hasEnoughPlayers: ({ context }) => {
+      return context.public.players.length >= 2;
+    },
+    hasQuestions: ({ context }) => {
+      return Object.keys(context.public.questions).length > 0;
+    },
+  },
+}).createMachine({
+  id: "game",
+  initial: "lobby",
+  context: ({ input }: { input: GameInput }) => ({
+    public: {
+      id: crypto.randomUUID(),
+      hostId: input.caller.id,
+      hostName: input.hostName,
+      players: [],
+      currentQuestion: null,
+      winner: null,
+      settings: {
+        maxPlayers: 100,
+        answerTimeWindow: 30,
+      },
+      questions: {},
+      questionResults: [],
+      questionNumber: 0,
+    },
+    private: {},
+  }),
+  states: {
+    lobby: {
+      on: {
+        JOIN_GAME: {
+          actions: "addPlayer",
+        },
+        START_GAME: {
+          guard: "isHost",
+          actions: "startGame",
+          target: "playing",
+        },
+        PARSE_QUESTIONS: {
+          guard: "isHost",
+          actions: "parseQuestions",
+        },
+        QUESTIONS_PARSED: {
+          guard: "isHost",
+          actions: "setQuestions",
+        },
+        UPDATE_SETTINGS: {
+          guard: "isHost",
+          actions: "updateSettings",
+        },
+      },
+    },
+    playing: {
+      // Game playing state logic
+    },
+  },
+}) satisfies ActorKitStateMachine<
+  GameEvent,
+  GameInput,
+  GamePrivateContext,
+  GamePublicContext
+>;`
     },
     {
       icon: <Lock className="h-5 w-5" />,
