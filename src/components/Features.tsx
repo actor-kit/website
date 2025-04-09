@@ -470,11 +470,11 @@ const incrementAccessCount = assign({
               <div className="p-6 h-full flex flex-col">
                 <h3 className="text-gray-300 mb-4 font-mono">// State machine visualization</h3>
                 <div className="flex-grow">
-                  {/* Stately.ai iframe for state machine visualization */}
+                  {/* Updated to a newer working visualization */}
                   <iframe 
-                    src="https://stately.ai/viz/embed/42f1f75c-7341-49ae-b7f5-2bcfa08deb90?mode=viz&panel=code&readOnly=1&showOriginalLink=1&controls=1&pan=1&zoom=1"
+                    src="https://stately.ai/viz/embed/5bcd3d5d-1951-471d-8df5-9cca1308e96d?mode=viz&panel=code&readOnly=1&showOriginalLink=1&controls=1&pan=1&zoom=1"
                     className="w-full h-full min-h-[400px] border-0 rounded"
-                    title="Todo State Machine Visualization"
+                    title="Game State Machine Visualization"
                     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
                     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
                   ></iframe>
