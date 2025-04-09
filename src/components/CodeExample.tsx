@@ -225,7 +225,7 @@ export default class Worker extends WorkerEntrypoint<Env> {
 
   const clientCode = `"use client";
 
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { GameActorKitContext } from "./game.context";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -241,14 +241,15 @@ export function GameLobby() {
     (state) => state.public.ownerId
   );
   const send = GameActorKitContext.useSend();
-  const [playerName, setPlayerName] = useState("");
+  const playerNameRef = useRef("");
   
   const isOwner = GameActorKitContext.useClient().callerId === ownerId;
   
   const handleJoinGame = (e) => {
     e.preventDefault();
-    if (playerName.trim()) {
-      send({ type: "JOIN_GAME", name: playerName.trim() });
+    const name = playerNameRef.current.trim();
+    if (name) {
+      send({ type: "JOIN_GAME", name });
     }
   };
   
@@ -280,8 +281,7 @@ export function GameLobby() {
       ) : (
         <form onSubmit={handleJoinGame}>
           <Input
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
+            ref={playerNameRef}
             placeholder="Enter your name"
           />
           <Button type="submit">
