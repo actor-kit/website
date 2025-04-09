@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 212 100% 48%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 220 14% 96%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 211 100% 96%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -35,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -61,7 +55,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 210 100% 56%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -97,5 +91,41 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  .gradient-blue {
+    @apply bg-gradient-to-r from-blue-600 to-blue-500;
+  }
+  
+  .gradient-orange {
+    @apply bg-gradient-to-r from-orange-500 to-yellow-500;
+  }
+  
+  .code-block {
+    @apply p-4 rounded-lg bg-[#0D1117] text-[#E6EDF3] overflow-x-auto text-sm font-mono;
+  }
+  
+  .syntax-keyword {
+    @apply text-[#FF7B72];
+  }
+  
+  .syntax-string {
+    @apply text-[#A5D6FF];
+  }
+  
+  .syntax-comment {
+    @apply text-[#8B949E];
+  }
+  
+  .syntax-function {
+    @apply text-[#D2A8FF];
+  }
+  
+  .syntax-variable {
+    @apply text-[#FFA657];
+  }
+  
+  .syntax-type {
+    @apply text-[#7EE787];
   }
 }
