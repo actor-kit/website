@@ -62,7 +62,7 @@ const Header = () => {
             href="https://github.com/jonmumm/actor-kit" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
+            className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2.5"
           >
             <Github size={18} />
             <span className="hidden sm:inline">GitHub</span>

@@ -236,70 +236,7 @@ export const todoMachine = setup({
       icon: <Cpu className="h-5 w-5" />,
       title: "State Machine Logic",
       description: "Powered by XState, making complex state management more manageable and visualizable, with tools for debugging and state inspection.",
-      code: `// State machine visualization example
-/*
-      +------------------------+
-      |         idle          |<---------+
-      +------------------------+         |
-               |  |                      |
-               |  |                      |
-               |  v                      |
-      +------------------------+         |
-      |        loading        |         |
-      +------------------------+         |
-               |                         |
-               |                         |
-               v                         |
-      +------------------------+         |
-      |         ready         |-----------+
-      +------------------------+         | |
-               |                         | |
-               |                         | |
-               v                         | |
-      +------------------------+         | |
-      |     synchronizing     |         | |
-      +------------------------+         | |
-               |                         | |
-               |                         | |
-               v                         | |
-      +------------------------+         | |
-      |     synchronized      |---------+ |
-      +------------------------+           |
-                                          |
-      +------------------------+           |
-      |         error          |<-----------+
-      +------------------------+
-*/
-
-// Visualization with interactive state inspection
-import { useMachine } from '@xstate/react';
-import { inspect } from '@xstate/inspect';
-
-// Enable visual debugger in development
-if (process.env.NODE_ENV === 'development') {
-  inspect({
-    url: 'https://stately.ai/viz?inspect',
-    iframe: () => document.querySelector('#xstate-inspector')
-  });
-}
-
-function TodoApp() {
-  const [state, send] = useMachine(todoMachine, { 
-    devTools: true 
-  });
-  
-  return (
-    <div>
-      <div className="state-indicator">
-        Current state: {state.value}
-      </div>
-      {/* Rest of your component */}
-      
-      {/* Add this at the bottom of your app */}
-      <iframe id="xstate-inspector" />
-    </div>
-  );
-}`
+      code: ``
     },
     {
       icon: <Lock className="h-5 w-5" />,
@@ -396,13 +333,13 @@ const incrementAccessCount = assign({
           {activeTab === 4 ? (
             <div className="lg:w-2/3 rounded-xl bg-[#0D1117] overflow-hidden">
               <div className="p-6 h-full flex flex-col">
-                <h3 className="text-gray-300 mb-4 font-mono">// State machine visualization example</h3>
+                <h3 className="text-gray-300 mb-4 font-mono">// State machine visualization</h3>
                 <div className="flex-grow">
-                  {/* Replace the visualization with a Stately iframe */}
+                  {/* Stately.ai iframe for state machine visualization */}
                   <iframe 
-                    src="https://stately.ai/viz/embed/83bf2e88-4f2a-4dc4-9a72-d29679fd2019?machineId=83bf2e88-4f2a-4dc4-9a72-d29679fd2019&mode=viz"
+                    src="https://stately.ai/viz/embed/42f1f75c-7341-49ae-b7f5-2bcfa08deb90?mode=viz&panel=code&readOnly=1&showOriginalLink=1&controls=1&pan=1&zoom=1"
                     className="w-full h-full min-h-[400px] border-0 rounded"
-                    title="XState Machine Visualization"
+                    title="Todo State Machine Visualization"
                     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
                     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
                   ></iframe>
