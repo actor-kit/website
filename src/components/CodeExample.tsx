@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, CheckCheck } from "lucide-react";
@@ -6,9 +7,17 @@ import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-javascript";
 
 const CodeExample = () => {
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState("machine");
+
+  // Initialize Prism.js after component mount and whenever the tab changes
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [activeTab]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -284,9 +293,19 @@ export function GameLobby() {
   );
 }`;
 
-  // Function to apply syntax highlighting
-  const highlightCode = (code: string) => {
-    return Prism.highlight(code, Prism.languages.typescript, 'typescript');
+  const getCodeForTab = (tab: string) => {
+    switch (tab) {
+      case 'machine': return machineCode;
+      case 'server': return serverCode;
+      case 'worker': return workerCode;
+      case 'client': return clientCode;
+      default: return machineCode;
+    }
+  };
+
+  // Function to get proper language class for current tab
+  const getLanguageForTab = (tab: string) => {
+    return 'language-typescript';
   };
 
   return (
@@ -301,7 +320,7 @@ export function GameLobby() {
       </div>
       
       <div className="rounded-xl border overflow-hidden shadow-lg">
-        <Tabs defaultValue="machine">
+        <Tabs defaultValue="machine" onValueChange={setActiveTab}>
           <div className="bg-card/80 border-b p-2">
             <div className="flex items-center justify-between">
               <TabsList className="grid grid-cols-4">
@@ -313,7 +332,7 @@ export function GameLobby() {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                onClick={() => copyToClipboard(machineCode)}
+                onClick={() => copyToClipboard(getCodeForTab(activeTab))}
                 className="h-8 px-2"
               >
                 {copied ? (
@@ -328,45 +347,33 @@ export function GameLobby() {
           
           <TabsContent value="machine" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code 
-                className="language-typescript" 
-                dangerouslySetInnerHTML={{
-                  __html: highlightCode(machineCode)
-                }}
-              />
+              <code className={getLanguageForTab('machine')}>
+                {machineCode}
+              </code>
             </pre>
           </TabsContent>
           
           <TabsContent value="server" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code 
-                className="language-typescript" 
-                dangerouslySetInnerHTML={{
-                  __html: highlightCode(serverCode)
-                }}
-              />
+              <code className={getLanguageForTab('server')}>
+                {serverCode}
+              </code>
             </pre>
           </TabsContent>
           
           <TabsContent value="worker" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code 
-                className="language-typescript" 
-                dangerouslySetInnerHTML={{
-                  __html: highlightCode(workerCode)
-                }}
-              />
+              <code className={getLanguageForTab('worker')}>
+                {workerCode}
+              </code>
             </pre>
           </TabsContent>
           
           <TabsContent value="client" className="p-0 m-0">
             <pre className="code-block h-[500px] overflow-auto p-6">
-              <code 
-                className="language-typescript" 
-                dangerouslySetInnerHTML={{
-                  __html: highlightCode(clientCode)
-                }}
-              />
+              <code className={getLanguageForTab('client')}>
+                {clientCode}
+              </code>
             </pre>
           </TabsContent>
         </Tabs>
