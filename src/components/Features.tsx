@@ -248,95 +248,6 @@ export const todoMachine = setup({
       description: "Powered by XState, making complex state management more manageable and visualizable, with tools for debugging and state inspection.",
       code: `// State machine visualization example
 /*
-┌─────────────────────────┐
-│          idle           │◀─────────┐
-└─────────────────────────┘          │
-           │  │                      │
-           │  │                      │
-           │  │                      │
-           │  ▼                      │
-┌─────────────────────────┐          │
-│         loading         │          │
-└─────────────────────────┘          │
-           │                         │
-           │                         │
-           ▼                         │
-┌─────────────────────────┐          │
-│          ready          │────────────┐
-└─────────────────────────┘          │ │
-           │                         │ │
-           │                         ��� │
-           ▼                         │ │
-┌─────────────────────────┐          │ │
-│      synchronizing      │          │ │
-└─────────────────────────┘          │ │
-           │                         │ │
-           │                         │ │
-           ▼                         │ │
-┌─────────────────────────┐          │ │
-│       synchronized      │─────────┘ │
-└─────────────────────────┘            │
-                                       │
-┌─────────────────────────┐            │
-│          error          │◀───────────┘
-└─────────────────────────┘
-*/`
-    },
-    {
-      icon: <Lock className="h-5 w-5" />,
-      title: "Access Control",
-      description: "Powerful built-in access control with public and private data. Control what data is shared across clients and what stays private.",
-      code: `// Access control with caller-specific private data
-export type TodoPublicContext = {
-  ownerId: string;
-  todos: Array<{ 
-    id: string; 
-    text: string; 
-    completed: boolean 
-  }>;
-  lastSync: number | null;
-};
-
-export type TodoPrivateContext = {
-  accessCount: number;
-  settings: {
-    sortOrder: "asc" | "desc";
-    showCompleted: boolean;
-  }
-};
-
-export type TodoServerContext = {
-  public: TodoPublicContext;
-  private: Record<string, TodoPrivateContext>;
-};
-
-// Update private data in an action
-const incrementAccessCount = assign({
-  private: ({ context, caller }) => {
-    const currentCallerPrivate = context.private[caller.id] || { 
-      accessCount: 0,
-      settings: {
-        sortOrder: "asc",
-        showCompleted: true
-      }
-    };
-    
-    return {
-      ...context.private,
-      [caller.id]: {
-        ...currentCallerPrivate,
-        accessCount: currentCallerPrivate.accessCount + 1
-      }
-    };
-  }
-});`
-    }
-  ];
-
-  // Only update the visualization for the State Machine Logic tab
-  if (features[4] && features[4].icon) {
-    features[4].code = `// State machine visualization example
-/*
       +------------------------+
       |         idle          |<---------+
       +------------------------+         |
@@ -398,8 +309,58 @@ function TodoApp() {
       <iframe id="xstate-inspector" />
     </div>
   );
-}`;
+}`
+    },
+    {
+      icon: <Lock className="h-5 w-5" />,
+      title: "Access Control",
+      description: "Powerful built-in access control with public and private data. Control what data is shared across clients and what stays private.",
+      code: `// Access control with caller-specific private data
+export type TodoPublicContext = {
+  ownerId: string;
+  todos: Array<{ 
+    id: string; 
+    text: string; 
+    completed: boolean 
+  }>;
+  lastSync: number | null;
+};
+
+export type TodoPrivateContext = {
+  accessCount: number;
+  settings: {
+    sortOrder: "asc" | "desc";
+    showCompleted: boolean;
   }
+};
+
+export type TodoServerContext = {
+  public: TodoPublicContext;
+  private: Record<string, TodoPrivateContext>;
+};
+
+// Update private data in an action
+const incrementAccessCount = assign({
+  private: ({ context, caller }) => {
+    const currentCallerPrivate = context.private[caller.id] || { 
+      accessCount: 0,
+      settings: {
+        sortOrder: "asc",
+        showCompleted: true
+      }
+    };
+    
+    return {
+      ...context.private,
+      [caller.id]: {
+        ...currentCallerPrivate,
+        accessCount: currentCallerPrivate.accessCount + 1
+      }
+    };
+  }
+});`
+    }
+  ];
 
   return (
     <section className="py-20 bg-secondary/50" id="features">
@@ -474,14 +435,45 @@ function TodoApp() {
                       <div className="state-content">error</div>
                     </div>
                     
-                    {/* Transition lines */}
-                    <div className={`transition-line line-idle-loading ${animateStates ? "animate-in" : ""}`}></div>
-                    <div className={`transition-line line-loading-ready ${animateStates ? "animate-in" : ""} delay-100`}></div>
-                    <div className={`transition-line line-ready-sync ${animateStates ? "animate-in" : ""} delay-200`}></div>
-                    <div className={`transition-line line-sync-synced ${animateStates ? "animate-in" : ""} delay-300`}></div>
-                    <div className={`transition-line line-synced-error ${animateStates ? "animate-in" : ""} delay-400`}></div>
-                    <div className={`transition-line line-error-idle ${animateStates ? "animate-in" : ""} delay-500`}></div>
-                    <div className={`transition-line line-ready-idle ${animateStates ? "animate-in" : ""} delay-200`}></div>
+                    {/* Add SVG for proper arrow transitions */}
+                    <svg className="state-diagram-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+                      {/* Vertical transitions */}
+                      <g className={`transition ${animateStates ? "animate-in" : ""}`}>
+                        <line x1="50%" y1="50px" x2="50%" y2="100px" className="transition-line" />
+                        <polygon points="50%,110 47%,100 53%,100" className="arrow-head" />
+                      </g>
+                      
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-100`}>
+                        <line x1="50%" y1="150px" x2="50%" y2="200px" className="transition-line" />
+                        <polygon points="50%,210 47%,200 53%,200" className="arrow-head" />
+                      </g>
+                      
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-200`}>
+                        <line x1="50%" y1="250px" x2="50%" y2="300px" className="transition-line" />
+                        <polygon points="50%,310 47%,300 53%,300" className="arrow-head" />
+                      </g>
+                      
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-300`}>
+                        <line x1="50%" y1="350px" x2="50%" y2="400px" className="transition-line" />
+                        <polygon points="50%,410 47%,400 53%,400" className="arrow-head" />
+                      </g>
+                      
+                      {/* Diagonal transitions */}
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-400`}>
+                        <line x1="40%" y1="400px" x2="55%" y2="450px" className="transition-line" />
+                        <polygon points="60%,455 55%,445 50%,450" className="arrow-head" />
+                      </g>
+                      
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-500`}>
+                        <line x1="65%" y1="425px" x2="35%" y2="25px" className="transition-line" />
+                        <polygon points="30%,20 30%,30 40%,25" className="arrow-head" />
+                      </g>
+                      
+                      <g className={`transition ${animateStates ? "animate-in" : ""} delay-200`}>
+                        <line x1="65%" y1="200px" x2="35%" y2="25px" className="transition-line" />
+                        <polygon points="30%,20 30%,30 40%,25" className="arrow-head" />
+                      </g>
+                    </svg>
                   </div>
                   
                   {/* Legend */}
@@ -510,17 +502,46 @@ function TodoApp() {
         </div>
       </div>
       
-      {/* Add styles for the state machine visualization */}
+      {/* Add styles for the state machine visualization with improved SVG arrows */}
       <style>
         {`
         .state-machine-diagram {
           position: relative;
           width: 100%;
           height: 400px;
-          display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: repeat(6, 1fr);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
           overflow: hidden;
+        }
+        
+        .state-diagram-svg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          pointer-events: none;
+        }
+        
+        .transition {
+          opacity: 0;
+          transition: opacity 0.5s ease;
+        }
+        
+        .transition.animate-in {
+          opacity: 1;
+        }
+        
+        .transition-line {
+          stroke: rgba(148, 163, 184, 0.3);
+          stroke-width: 2;
+        }
+        
+        .arrow-head {
+          fill: rgba(148, 163, 184, 0.3);
         }
         
         .state-node {
@@ -538,6 +559,7 @@ function TodoApp() {
           transform: translateY(10px);
           transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
           box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+          z-index: 2;
         }
         
         .state-node.animate-in {
@@ -552,91 +574,28 @@ function TodoApp() {
         }
         
         .state-idle {
-          grid-row: 1;
+          margin-top: 0;
         }
         
         .state-loading {
-          grid-row: 2;
+          margin-top: 0;
         }
         
         .state-ready {
-          grid-row: 3;
+          margin-top: 0;
         }
         
         .state-synchronizing {
-          grid-row: 4;
+          margin-top: 0;
         }
         
         .state-synchronized {
-          grid-row: 5;
+          margin-top: 0;
         }
         
         .state-error {
-          grid-row: 6;
+          margin-top: 0;
           border-color: rgba(220, 38, 38, 0.5);
-        }
-        
-        .transition-line {
-          position: absolute;
-          background-color: rgba(148, 163, 184, 0.3);
-          opacity: 0;
-          transition: opacity 0.5s ease;
-        }
-        
-        .transition-line.animate-in {
-          opacity: 1;
-        }
-        
-        .line-idle-loading {
-          width: 2px;
-          height: 60px;
-          left: 50%;
-          top: 50px;
-        }
-        
-        .line-loading-ready {
-          width: 2px;
-          height: 60px;
-          left: 50%;
-          top: 100px;
-        }
-        
-        .line-ready-sync {
-          width: 2px;
-          height: 60px;
-          left: 50%;
-          top: 150px;
-        }
-        
-        .line-sync-synced {
-          width: 2px;
-          height: 60px;
-          left: 50%;
-          top: 200px;
-        }
-        
-        .line-synced-error {
-          width: 2px;
-          height: 60px;
-          transform: rotate(45deg);
-          left: 40%;
-          top: 250px;
-        }
-        
-        .line-error-idle {
-          width: 2px;
-          height: 200px;
-          transform: rotate(-45deg);
-          right: 30%;
-          top: 100px;
-        }
-        
-        .line-ready-idle {
-          width: 2px;
-          height: 120px;
-          transform: rotate(-45deg);
-          right: 35%;
-          top: 70px;
         }
         
         .delay-100 {

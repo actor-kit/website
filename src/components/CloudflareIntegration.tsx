@@ -104,17 +104,29 @@ const CloudflareIntegration = () => {
                   
                   {/* Arrow between boxes */}
                   <div className="clear-both relative h-8">
-                    <div className="absolute left-[47%] top-0 -mt-[2px] w-[6%] border-t border-dashed border-zinc-600"></div>
-                    <div className="absolute left-[47%] top-0 -mt-[5px] text-zinc-600">←</div>
+                    <div className="absolute left-[47%] top-0 mt-3 w-[6%] border-t border-dashed border-zinc-600"></div>
+                    <div className="absolute left-[52%] top-0 mt-2 text-zinc-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m12 19-7-7 7-7"/>
+                      </svg>
+                    </div>
                   </div>
                   
                   {/* Vertical arrows down */}
                   <div className="relative h-6">
                     <div className="absolute left-1/4 h-6 border-l border-zinc-600"></div>
-                    <div className="absolute left-1/4 bottom-0 text-zinc-600">▼</div>
+                    <div className="absolute left-1/4 bottom-0 translate-x-[-7px] text-zinc-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m19 12-7 7-7-7"/>
+                      </svg>
+                    </div>
                     
                     <div className="absolute right-1/4 h-6 border-l border-zinc-600"></div>
-                    <div className="absolute right-1/4 bottom-0 text-zinc-600">▼</div>
+                    <div className="absolute right-1/4 bottom-0 translate-x-[-7px] text-zinc-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m19 12-7 7-7-7"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 
@@ -136,7 +148,12 @@ const CloudflareIntegration = () => {
                   {/* Arrow between boxes */}
                   <div className="clear-both relative h-6">
                     <div className="absolute left-[47%] top-3 w-[6%] border-t border-dashed border-zinc-600"></div>
-                    <div className="absolute right-[53%] top-3 -mr-[5px] text-zinc-600">→</div>
+                    <div className="absolute right-[54%] top-2 text-zinc-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
