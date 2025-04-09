@@ -1,4 +1,4 @@
-import { Tab } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Server, Globe, Code, Lock, Cpu, Workflow } from "lucide-react";
 import { useState } from "react";
 
