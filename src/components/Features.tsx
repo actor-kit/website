@@ -259,12 +259,10 @@ export const gameMachine = setup({
       public: ({ context, event }) => {
         if (event.type !== "JOIN_GAME") return context.public;
         
-        // Check if player already exists
         const existingPlayerIndex = context.public.players.findIndex(
           (p) => p.id === event.caller.id
         );
         
-        // If player exists, update their name
         if (existingPlayerIndex >= 0) {
           const updatedPlayers = [...context.public.players];
           updatedPlayers[existingPlayerIndex] = {
@@ -279,7 +277,6 @@ export const gameMachine = setup({
           };
         }
         
-        // Otherwise add new player
         const newPlayer: Player = {
           id: event.caller.id,
           name: event.playerName,
@@ -343,11 +340,13 @@ export const gameMachine = setup({
         JOIN_GAME: {
           actions: "addPlayer",
         },
-        START_GAME: {
-          guard: "isHost",
-          actions: "startGame",
-          target: "playing",
-        },
+        START_GAME: [
+          {
+            guard: "isHost",
+            target: "playing",
+            actions: "startGame",
+          },
+        ],
         PARSE_QUESTIONS: {
           guard: "isHost",
           actions: "parseQuestions",
@@ -363,7 +362,21 @@ export const gameMachine = setup({
       },
     },
     playing: {
-      // Game playing state logic
+      on: {
+        SUBMIT_ANSWER: {
+          actions: "recordAnswer",
+        },
+        NEXT_QUESTION: [
+          {
+            guard: "isHost",
+            actions: "startNextQuestion",
+          },
+        ],
+        SKIP_QUESTION: {
+          guard: "isHost",
+          actions: "skipQuestion",
+        },
+      },
     },
   },
 }) satisfies ActorKitStateMachine<
@@ -465,31 +478,13 @@ const incrementAccessCount = assign({
             </div>
           </div>
           
-          {activeTab === 4 ? (
-            <div className="lg:w-2/3 rounded-xl bg-[#0D1117] overflow-hidden">
-              <div className="p-6 h-full flex flex-col">
-                <h3 className="text-gray-300 mb-4 font-mono">// State machine visualization</h3>
-                <div className="flex-grow">
-                  {/* Using a public demo visualization from Stately.ai */}
-                  <iframe 
-                    src="https://stately.ai/registry/editor/embed/8d5935c8-2bce-4b62-9d25-0a4e859e84f4?mode=viz&panel=code&readOnly=1&showOriginalLink=1&controls=1&pan=1&zoom=1"
-                    className="w-full h-full min-h-[400px] border-0 rounded"
-                    title="Game State Machine Visualization"
-                    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-                    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="lg:w-2/3 rounded-xl bg-[#0D1117] overflow-hidden">
-              <pre className="h-full overflow-auto p-6 text-sm">
-                <code className="language-typescript">
-                  {features[activeTab].code}
-                </code>
-              </pre>
-            </div>
-          )}
+          <div className="lg:w-2/3 rounded-xl bg-[#0D1117] overflow-hidden">
+            <pre className="h-full overflow-auto p-6 text-sm">
+              <code className="language-typescript">
+                {features[activeTab].code}
+              </code>
+            </pre>
+          </div>
         </div>
       </div>
     </section>
