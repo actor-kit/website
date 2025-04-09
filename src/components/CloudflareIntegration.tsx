@@ -1,8 +1,24 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { 
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent 
+} from "@/components/ui/chart";
 
 const CloudflareIntegration = () => {
+  const [diagramIsVisible, setDiagramIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Set diagram to visible after a short delay for better visual appearance
+    const timer = setTimeout(() => {
+      setDiagramIsVisible(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="py-20 bg-gradient-to-b from-white to-secondary/30">
       <div className="container">
@@ -58,32 +74,74 @@ const CloudflareIntegration = () => {
           
           <div className="md:w-1/2 relative">
             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cf-orange/10 rounded-full blur-[80px]"></div>
-            <div className="bg-white rounded-xl border shadow-lg p-6">
+            <div className="bg-[#0f1216] rounded-xl border border-zinc-800 shadow-2xl p-6 text-white transition-all duration-500 ease-in-out transform opacity-0 translate-y-4 scale-95" 
+              style={{
+                opacity: diagramIsVisible ? 1 : 0,
+                transform: diagramIsVisible ? 'translateY(0) scale(1)' : 'translateY(4px) scale(0.95)'
+              }}>
               <div className="flex items-center mb-4">
                 <div className="h-4 w-4 rounded-full bg-cf-orange mr-2"></div>
                 <h3 className="font-medium">Cloudflare Integration Diagram</h3>
               </div>
-              <div className="code-block p-4 mb-4 text-xs">
-                <pre>
-{`┌─────────────────────────────────────────┐
-│           User Browser                   │
-│  ┌──────────────────┐  ┌───────────────┐ │
-│  │  React Components │  │ Actor Kit     │ │
-│  │  useSelector,     │  │ Client        │ │
-│  │  useSend          │<─┤               │ │
-│  └──────────────────┘  └───────────────┘ │
-└──────────────┬──────────────────┬────────┘
-               │                  │
-               ▼                  ▼
-┌─────────────────────────────────────────┐
-│           Cloudflare Edge               │
-│  ┌──────────────────┐  ┌───────────────┐ │
-│  │ Actor Kit Router │─>│ Actor Server  │ │
-│  │                  │  │ (Durable Obj) │ │
-│  └──────────────────┘  └───────────────┘ │
-└─────────────────────────────────────────┘`}</pre>
+              
+              <div className="relative h-[320px] w-full">
+                {/* User Browser Box */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] border border-zinc-700 rounded-md p-3">
+                  <div className="text-center mb-2 text-zinc-400">User Browser</div>
+                  
+                  {/* React Components Box */}
+                  <div className="float-left w-[48%] border border-zinc-700 rounded-md p-2 text-sm">
+                    <div className="font-mono text-xs">React Components</div>
+                    <div className="font-mono text-xs text-zinc-400">useSelector,</div>
+                    <div className="font-mono text-xs text-zinc-400">useSend</div>
+                  </div>
+                  
+                  {/* Actor Kit Client Box */}
+                  <div className="float-right w-[48%] border border-zinc-700 rounded-md p-2 text-sm">
+                    <div className="font-mono text-xs">Actor Kit</div>
+                    <div className="font-mono text-xs text-zinc-400">Client</div>
+                  </div>
+                  
+                  {/* Arrow between boxes */}
+                  <div className="clear-both relative h-8">
+                    <div className="absolute left-[47%] top-0 -mt-[2px] w-[6%] border-t border-dashed border-zinc-600"></div>
+                    <div className="absolute left-[47%] top-0 -mt-[5px] text-zinc-600">←</div>
+                  </div>
+                  
+                  {/* Vertical arrows down */}
+                  <div className="relative h-6">
+                    <div className="absolute left-1/4 h-6 border-l border-zinc-600"></div>
+                    <div className="absolute left-1/4 bottom-0 text-zinc-600">▼</div>
+                    
+                    <div className="absolute right-1/4 h-6 border-l border-zinc-600"></div>
+                    <div className="absolute right-1/4 bottom-0 text-zinc-600">▼</div>
+                  </div>
+                </div>
+                
+                {/* Cloudflare Edge Box */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] border border-zinc-700 rounded-md p-3">
+                  <div className="text-center mb-2 text-zinc-400">Cloudflare Edge</div>
+                  
+                  {/* Actor Kit Router Box */}
+                  <div className="float-left w-[48%] border border-zinc-700 rounded-md p-2 text-sm">
+                    <div className="font-mono text-xs">Actor Kit Router</div>
+                  </div>
+                  
+                  {/* Actor Server Box */}
+                  <div className="float-right w-[48%] border border-zinc-700 rounded-md p-2 text-sm">
+                    <div className="font-mono text-xs">Actor Server</div>
+                    <div className="font-mono text-xs text-zinc-400">(Durable Obj)</div>
+                  </div>
+                  
+                  {/* Arrow between boxes */}
+                  <div className="clear-both relative h-6">
+                    <div className="absolute left-[47%] top-3 w-[6%] border-t border-dashed border-zinc-600"></div>
+                    <div className="absolute right-[53%] top-3 -mr-[5px] text-zinc-600">→</div>
+                  </div>
+                </div>
               </div>
-              <div className="text-muted-foreground text-sm">
+              
+              <div className="text-zinc-400 text-sm mt-4">
                 Actor Kit leverages Cloudflare's global network to provide real-time state synchronization with minimal latency, perfect for interactive applications requiring state management at the edge.
               </div>
             </div>
