@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Workflow, Zap, Shield } from "lucide-react";
 
@@ -9,7 +8,7 @@ const Hero = () => {
       
       <div className="container relative py-20 md:py-32 flex flex-col items-center text-center">
         <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.1s" }}>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cf-blue to-cf-orange">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cf-blue to-cf-orange">
             Better State Management for Edge Computing
           </h1>
         </div>
